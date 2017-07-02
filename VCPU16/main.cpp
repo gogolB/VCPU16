@@ -37,7 +37,9 @@ int main()
 	for (int i = 0; i < 1e8; i++)
 		c.doStep();
 	auto finish = std::chrono::high_resolution_clock::now();
-	std::cout << std::chrono::duration_cast<std::chrono::nanoseconds>(finish - start).count() << "ns\n";
+	long long ns = std::chrono::duration_cast<std::chrono::nanoseconds>(finish - start).count();
+	float MHZ = (1 / (ns / 1e17)) / 1e6;
+	std::cout << MHZ << "MHz\n";
 
 	/*
 	//c.CORE_DUMP();
@@ -51,8 +53,6 @@ int main()
 	c.doStep();
 	//c.CORE_DUMP();
 	*/
-
-	std::cout << 1 / ((ElapsedMicroseconds.QuadPart/1e6) / 1e8) << std::endl;
 
 	return 0;
 }
