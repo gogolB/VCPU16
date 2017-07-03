@@ -102,7 +102,15 @@ void VCPU16::PUT(unsigned short MA, unsigned short MD)
 void VCPU16::doStep()
 {
 	// STEP 1: FETCH
-	IR = memory[PC];
+	IR = memory[PC]; 
+	if (PC == 0xFFFF)
+	{
+#ifdef VERBOSE_CPU
+		std::cout << "CPU REACHED END\n";
+#endif
+		return;
+	}
+		
 	PC++;
 	// STEP 2: DECODE
 	unsigned short OPCODE = IR >> 11;
@@ -129,8 +137,10 @@ void VCPU16::doStep()
 		break;
 	case 10:
 		NOT();
+		break;
 	case 14:
 		JMP();
+		break;
 	}
 	/*
 	// STEP 4: MEMORY ACCESS
@@ -270,14 +280,22 @@ void VCPU16::JMP()
 	std::cout << "JMP: ";
 #endif
 	bool f = (IR & 0b0000010000000000) > 0;
-	if (!f)
+	if (f)
 	{
-		std::cout << "NOT YET" << std::endl;
+		unsigned short IMD = (IR & 0b0000001111111111);
+		IMD = IMD | ((IR & 0x200) ? 0xFC00 : 0);
+		PC = PC + IMD;
+#ifdef VERBOSE_CPU
+		std::cout << "PC <- PC + ("<< (short)IMD << ")" << std::endl;
+#endif
 	}
 	else
 	{
 		unsigned char SR = (IR & 0b0000001110000000) >> 7;
 		PC = REGISTERS[SR];
+#ifdef VERBOSE_CPU
+		std::cout << "PC <- R[" << (int)SR << "]" << std::endl;
+#endif
 	}
 }
 

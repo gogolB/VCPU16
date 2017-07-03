@@ -3,7 +3,7 @@
 #include<iostream>
 #include<bitset>
 
-//#define VERBOSE_CPU 1
+#define VERBOSE_CPU 1
 
 class VCPU16
 {
