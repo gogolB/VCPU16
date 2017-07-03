@@ -3,7 +3,10 @@
 #include<iostream>
 #include<bitset>
 
-#define VERBOSE_CPU 1
+#define VERBOSE_CPU 0
+#define USE_OPFUNC_TABLE 0
+class VCPU16;
+typedef void (VCPU16::* FP)(void);
 
 class VCPU16
 {
@@ -40,6 +43,11 @@ private:
 	unsigned short * REG_G;
 	unsigned short * REG_H;
 
+#if USE_OPFUNC_TABLE
+	// OPCODE FUNCTION TABLE
+	FP OPFUNC[32];
+#endif
+
 	// Memory control
 	unsigned short MAR;
 	unsigned short * MDR;
@@ -48,6 +56,8 @@ private:
 
 	// Functions
 	void init();
+
+	void updateFLAGS(unsigned const char DR);
 
 	// OPCODE FUNCTIONS
 	void SET();
@@ -64,6 +74,28 @@ private:
 
 	void NOT();
 
+	void AND();
+	
+	void OR();
+
+	void XOR();
+
 	void JMP();
+
+	void JX();
+
+	void RCL();
+
+	void RCR();
+
+	void ST();
+
+	void LD();
+
+	void TRAP();
+
+	void NOP();
+
+	void RESERV();
 };
 
