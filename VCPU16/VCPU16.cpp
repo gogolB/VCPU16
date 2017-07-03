@@ -176,6 +176,18 @@ void VCPU16::doStep()
 	case 5:
 		DIV();
 		break;
+	case 6:
+		RESERV();
+		break;
+	case 7:
+		RESERV();
+		break;
+	case 8:
+		RESERV();
+		break;
+	case 9:
+		RESERV();
+		break;
 	case 10:
 		NOT();
 		break;
@@ -208,6 +220,36 @@ void VCPU16::doStep()
 		break;
 	case 20:
 		SET();
+		break;
+	case 21:
+		RESERV();
+		break;
+	case 22:
+		RESERV();
+		break;
+	case 23:
+		RESERV();
+		break;
+	case 24:
+		RESERV();
+		break;
+	case 25:
+		RESERV();
+		break;
+	case 26:
+		RESERV();
+		break;
+	case 27:
+		RESERV();
+		break;
+	case 28:
+		RESERV();
+		break;
+	case 29:
+		RESERV();
+		break;
+	case 30:
+		RESERV();
 		break;
 	case 31:
 		TRAP();
